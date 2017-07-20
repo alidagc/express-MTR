@@ -63,6 +63,35 @@ router.post('/api/signup', (req, res, next) =>{
 
 // POST login
 
+// Not using passport.authenticate() because that redirects
+router.post('/login', (req, res, next) =>{
+  const authenticateFunction = passport.authenticate('local',(err, theUser, extraInfo) =>{
+    if (err){
+      res.status(500).json({ message: 'Unknown login error'});
+      return;
+    }
+    //Login failed for sure if theUser is empty
+    if (!theUser){
+    // extraInfo contains the feedback message from LocalStrategy
+      res.status(401).json(extraInfo);
+      return;
+    }
+    //login successful
+    req.login(theUser, (err) => {
+      if (err){
+        res.status(500).json({ message: 'Session save error'});
+        return;
+      }
+
+      theUser.encryptedPassword = undefined;
+      // Everything worked!
+      res.status(200).json(theUser);
+    });
+  });
+
+  authenticateFunction(req, res, next);
+});
+
 // POST logout
 
 // GET checklogin
