@@ -1,7 +1,8 @@
 const express     = require('express');
 const bcrypt      = require('bcrypt');
+const passport    = require('passport');
 
-const UserModel = require('../models/user-model');
+const UserModel   = require('../models/user-model');
 
 const router      = express.Router();
 
@@ -64,7 +65,7 @@ router.post('/api/signup', (req, res, next) =>{
 // POST login
 
 // Not using passport.authenticate() because that redirects
-router.post('/login', (req, res, next) =>{
+router.post('/api/login', (req, res, next) =>{
   const authenticateFunction = passport.authenticate('local',(err, theUser, extraInfo) =>{
     if (err){
       res.status(500).json({ message: 'Unknown login error'});
@@ -93,7 +94,22 @@ router.post('/login', (req, res, next) =>{
 });
 
 // POST logout
+router.post('/api/logout', (req, res, next)=>{
+  // req.logout() is defined by passport
+  req.logout();
+  res.status(200).json({ message: 'Log out success'});
+});
 
 // GET checklogin
+router.get('/api/checklogin', (req, res, next)=>{
+  if(!req.user) {
+    res.status(401).json({ message: 'No user logged in'});
+    return;
+  }
+
+  req.user.encryptedPassword = undefined;
+  res.status(200).json(req.user);
+});
+
 
 module.exports = router;

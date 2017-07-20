@@ -25,6 +25,7 @@ passport.deserializeUser((idFromBowl, next) => {
 passport.use(new LocalStrategy(
   {
     //left side is set by passport (cant change) and the right is the name used to connect with angular
+    // when you login and or test in insomnia, this is what you use
     usernameField: 'userEmail',
     passwordField: 'userPassword'
   },
