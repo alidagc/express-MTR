@@ -54,6 +54,9 @@ app.use('/', myAuthRoutes);
 const myTravelRoutes = require('./routes/my-travel-routes');
 app.use('/', myTravelRoutes);
 
+const myPinRoutes = require('./routes/pin-routes');
+app.use('/', myPinRoutes);
+
 // END ROUTES -------------
 
 

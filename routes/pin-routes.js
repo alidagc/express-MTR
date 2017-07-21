@@ -1,21 +1,24 @@
 const express     = require('express');
 const PinModel    = require('../models/pin-model');
+const RouterModel = require('../models/route-model');
 const passport    = require('passport');
 const UserModel   = require('../models/user-model');
 
 const router      = express.Router();
 
-router.post('/api/myRoutes/new', (req, res, next)=>{
+router.post('/api/myRoutes/newPin', (req, res, next)=>{
   if (!req.user){
     res.status(401).json({ message: 'Log in to create a pin'});
     return;
   }
 
   const thePin = new PinModel({
-    // user: req.user._id,
-    // routeName: req.body.routeName,
-    // description: req.body.routeDescription,
-    // duration: req.body.routeDuration
+    // routeId: req.body.pinRouteId, //how do i get the URL from the myRoute from the Angular Url
+    pinName: req.body.pinName,
+    location: req.body.pinLocation,
+    duration: req.body.pinDuration,
+    imageUrl: req.body.pinImageUrl,
+    notes: req.body.pinNotes
   });
 
   thePin.save((err) =>{
@@ -26,9 +29,11 @@ router.post('/api/myRoutes/new', (req, res, next)=>{
 
     if (err && thePin.errors) {
       res.status(400).json({
-        // nameError: theRoute.errors.routeName,
-        // descriptionError: theRoute.errors.description,
-        // durationError: theRoute.errors.duration
+        pinNameError: req.body.pinName,
+        locationError: req.body.location,
+        durationError: req.body.duration,
+        imageUrlError: req.body.imageUrl,
+        notesError: req.body.notes
        });
        return;
     }

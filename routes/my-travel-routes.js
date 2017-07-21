@@ -19,6 +19,16 @@ router.post('/api/myRoutes/new', (req, res, next)=>{
     duration: req.body.routeDuration
   });
 
+  UserModel.findByIdAndUpdate(req.user._id,
+      {"$push" : {routes: theRoute._id},
+    }, (err, question) => {
+        if (err){
+          console.log("Route not saved to user");
+          next(err);
+          return;
+        }
+  });
+  
   theRoute.save((err) =>{
     if (err && theRoute.errors === undefined){
       res.status(500).json({ message: 'Route was not saved'});

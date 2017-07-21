@@ -7,7 +7,7 @@ const myUserSchema = new Schema(
   lastName: { type: String, required: true},
   email: { type: String, required: true},
   encryptedPassword: { type: String, required: true},
-  routes: {type: Array}
+  routes: { type: [Schema.Types.ObjectId], ref: 'Route'},
   },
   {
   timestamps: true
