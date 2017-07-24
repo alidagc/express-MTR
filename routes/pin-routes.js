@@ -15,7 +15,6 @@ router.post('/api/myRoutes/newPin', (req, res, next)=>{
   const thePin = new PinModel({
     // routeId: req.body.pinRouteId, //how do i get the URL from the myRoute from the Angular Url
     pinName: req.body.pinName,
-    location: req.body.pinLocation,
     duration: req.body.pinDuration,
     imageUrl: req.body.pinImageUrl,
     notes: req.body.pinNotes
@@ -30,7 +29,6 @@ router.post('/api/myRoutes/newPin', (req, res, next)=>{
     if (err && thePin.errors) {
       res.status(400).json({
         pinNameError: req.body.pinName,
-        locationError: req.body.location,
         durationError: req.body.duration,
         imageUrlError: req.body.imageUrl,
         notesError: req.body.notes

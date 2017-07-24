@@ -5,10 +5,11 @@ const myPinSchema = new Schema(
   {
   // routeId: { type: Schema.Types.ObjectId, required: true, ref: 'Route'},
   pinName: { type: String, required: true},
-  location: { type: String},
   duration: { type: Number, required: true},
   imageUrl: { type: String},
-  notes: {type: String, required: true}
+  notes: {type: String, required: true},
+  lat: { type: Number},
+  lng: { type: Number}
   },
   {
   timestamps: true

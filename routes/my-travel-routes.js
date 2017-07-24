@@ -28,7 +28,7 @@ router.post('/api/myRoutes/new', (req, res, next)=>{
           return;
         }
   });
-  
+
   theRoute.save((err) =>{
     if (err && theRoute.errors === undefined){
       res.status(500).json({ message: 'Route was not saved'});
@@ -43,6 +43,8 @@ router.post('/api/myRoutes/new', (req, res, next)=>{
        });
        return;
     }
+    // Put the full user info here for Angular
+    // theRoute.user = req.user;
     // Success!
     res.status(200).json(theRoute);
   });
