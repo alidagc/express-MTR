@@ -6,8 +6,8 @@ const myUserSchema = new Schema(
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
   email: { type: String, required: true},
-  encryptedPassword: { type: String, required: true},
-  routes: { type: [Schema.Types.ObjectId], ref: 'Route'},
+  encryptedPassword: { type: String, required: true}
+  // routes: { type: [Schema.Types.ObjectId], ref: 'Route'},
   },
   {
   timestamps: true

@@ -1,11 +1,13 @@
 const express     = require('express');
-const PinModel    = require('../models/pin-model');
-const RouteModel = require('../models/route-model');
 const passport    = require('passport');
+
 const UserModel   = require('../models/user-model');
+const RouteModel = require('../models/route-model');
+const PinModel    = require('../models/pin-model');
 
 const router      = express.Router();
 
+// NEW PIN --------------------------------
 router.post('/api/myRoutes/newPin', (req, res, next)=>{
   if (!req.user){
     res.status(401).json({ message: 'Log in to create a pin'});

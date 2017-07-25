@@ -10,7 +10,9 @@ const myRouteSchema = new Schema(
   location: { type: String, required: true},
   description: { type: String, required: true},
   duration: { type: Number, min: 0.5, required: true},
-  tags: {type: Array},
+  path: {type: Array},
+  pins: {type: Schema.Types.ObjectId, ref: 'Pin'}
+  // tags: {type: Array},
   },
   {
   timestamps: true

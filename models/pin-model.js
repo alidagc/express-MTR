@@ -8,6 +8,7 @@ const myPinSchema = new Schema(
   duration: { type: Number, required: true},
   imageUrl: { type: String},
   notes: {type: String, required: true},
+  //location has the lat and lng to redraw on map
   location: {type: Object, rquired: true}
   },
   {
