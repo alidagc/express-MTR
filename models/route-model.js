@@ -7,12 +7,10 @@ const myRouteSchema = new Schema(
   //ref is the string name of the model that the ID refers to
   // you NEED "ref" to use 'populate()' later
   routeName: { type: String, required: true},
-  location: { type: String},
+  location: { type: String, required: true},
   description: { type: String, required: true},
-  duration: { type: Number, min: 1, required: true},
+  duration: { type: Number, min: 0.5, required: true},
   tags: {type: Array},
-  pins: {type: Array},
-  path: {type: Array}
   },
   {
   timestamps: true

@@ -1,6 +1,6 @@
 const express     = require('express');
 const PinModel    = require('../models/pin-model');
-const RouterModel = require('../models/route-model');
+const RouteModel = require('../models/route-model');
 const passport    = require('passport');
 const UserModel   = require('../models/user-model');
 

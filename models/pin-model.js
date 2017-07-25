@@ -3,13 +3,12 @@ const Schema = mongoose.Schema;
 
 const myPinSchema = new Schema(
   {
-  // routeId: { type: Schema.Types.ObjectId, required: true, ref: 'Route'},
+  routeId: { type: Schema.Types.ObjectId, required: true, ref: 'Route'},
   pinName: { type: String, required: true},
   duration: { type: Number, required: true},
   imageUrl: { type: String},
   notes: {type: String, required: true},
-  lat: { type: Number},
-  lng: { type: Number}
+  location: {type: Object, rquired: true}
   },
   {
   timestamps: true
