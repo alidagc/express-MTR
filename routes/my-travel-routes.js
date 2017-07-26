@@ -138,6 +138,24 @@ router.post('/api/:routeId/newpath', (req, res, next)=>{
   });
 });
 
-
+// DELETING A PATH ----------------------------------
+router.put('/api/:routeId/deletepath', (req, res, next)=>{
+  if (!req.user){
+    res.status(401).json({ message: 'Log in to delete path'});
+    return;
+  }
+  RouteModel.findByIdAndUpdate(req.params.routeId,
+    {$set: {
+      path: []
+    }},
+    { new: true },
+     (err, theRoute) => {
+      if (err) {
+        res.status(500).json({ message: 'Path was not created successfully'});
+        return;
+    }
+    res.status(200).json(theRoute);
+  });
+});
 
 module.exports = router;
