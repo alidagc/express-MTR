@@ -56,9 +56,12 @@ app.use('/', myTravelRoutes);
 
 const myPinRoutes = require('./routes/pin-routes');
 app.use('/', myPinRoutes);
-
 // END ROUTES -------------
 
+// this tells the app to use angulars index html when the app can't find the route.
+app.use((req, res, next)=>{
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
