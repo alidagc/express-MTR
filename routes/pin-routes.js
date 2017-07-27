@@ -7,19 +7,20 @@ const PinModel    = require('../models/pin-model');
 
 const router      = express.Router();
 
-// NEW PIN --------------------------------
-router.post('/api/myRoutes/newPin', (req, res, next)=>{
+// MAKE NEW PIN --------------------------------
+router.post('/api/pins/newPin', (req, res, next)=>{
   if (!req.user){
     res.status(401).json({ message: 'Log in to create a pin'});
     return;
   }
 
   const thePin = new PinModel({
-    // routeId: req.body.pinRouteId, //how do i get the URL from the myRoute from the Angular Url
+    routeId: req.body.pinRouteId,
     pinName: req.body.pinName,
+    deets: req.body.pinDeets,
     duration: req.body.pinDuration,
-    imageUrl: req.body.pinImageUrl,
-    notes: req.body.pinNotes
+    lat: req.body.pinLat,
+    lng: req.body.pinLng
   });
 
   thePin.save((err) =>{
@@ -27,20 +28,52 @@ router.post('/api/myRoutes/newPin', (req, res, next)=>{
       res.status(500).json({ message: 'Pin was not saved'});
       return;
     }
-
     if (err && thePin.errors) {
       res.status(400).json({
+        routeIdError: req.body.routeId,
         pinNameError: req.body.pinName,
-        durationError: req.body.duration,
-        imageUrlError: req.body.imageUrl,
-        notesError: req.body.notes
+        deetsError: req.body.deets,
+        dirationError: req.body.duration,
+        latError: req.body.lat,
+        lngError: req.body.lng
        });
        return;
     }
-    // Success!
     res.status(200).json(thePin);
   });
 });
 
+// ACCESSING ONE PIN----------------------------------
+router.get('/api/pins/:pinId', (req,res, next)=>{
+  if (!req.user){
+    res.status(401).json({ message: 'Log in to see the Pin'});
+    return;
+  }
+  PinModel.findById(req.params.pinId)
+    .exec((err, thePin)=>{
+      if (err) {
+        res.status(500).json({ message: 'Pin find was not successful'});
+        return;
+      }
+      console.log(thePin);
+    res.status(200).json(thePin);
+    });
+});
+
+// ACCESS ALL PINS ---------------------------------
+router.get('/api/allpins/:routeId', (req,res, next)=>{
+  if (!req.user){
+    res.status(401).json({ message: 'Log in to see all pins'});
+    return;
+  }
+  PinModel.find({routeId: req.params.routeId})
+    .exec((err, allThePins)=>{
+      if (err) {
+        res.status(500).json({ message: 'Pins were not found successfully'});
+        return;
+      }
+    res.status(200).json(allThePins);
+    });
+});
 
 module.exports = router;

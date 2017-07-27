@@ -5,11 +5,10 @@ const myPinSchema = new Schema(
   {
   routeId: { type: Schema.Types.ObjectId, required: true, ref: 'Route'},
   pinName: { type: String, required: true},
+  deets: {type: String, required: true},
   duration: { type: Number, required: true},
-  imageUrl: { type: String},
-  notes: {type: String, required: true},
-  //location has the lat and lng to redraw on map
-  location: {type: Object, rquired: true}
+  lat: {type: Number, required: true},
+  lng: {type: Number, required: true}
   },
   {
   timestamps: true
