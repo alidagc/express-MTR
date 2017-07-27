@@ -29,6 +29,7 @@ router.post('/api/pins/newPin', (req, res, next)=>{
       return;
     }
     if (err && thePin.errors) {
+      console.log(thePin.errors);
       res.status(400).json({
         routeIdError: req.body.routeId,
         pinNameError: req.body.pinName,
